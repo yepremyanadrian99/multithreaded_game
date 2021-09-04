@@ -1,11 +1,11 @@
-package am.adrian.game;
+package am.adrian.multithreaded_game.button;
 
 import java.awt.Dimension;
 import java.awt.Panel;
 import javax.swing.JButton;
 
-import am.adrian.game.enumeration.PlayerDirection;
-import am.adrian.game.listener.GameMouseListener;
+import am.adrian.multithreaded_game.enumeration.PlayerDirection;
+import am.adrian.multithreaded_game.listener.GameMouseListener;
 import lombok.Data;
 
 @Data

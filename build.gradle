@@ -16,7 +16,7 @@ repositories {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    
+
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
@@ -24,5 +24,5 @@ dependencies {
 }
 
 application {
-    mainClass = 'am.adrian.Application'
+    mainClass = 'am.adrian.multithreaded_game.Application'
 }

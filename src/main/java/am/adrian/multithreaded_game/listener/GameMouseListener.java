@@ -1,4 +1,4 @@
-package am.adrian.game.listener;
+package am.adrian.multithreaded_game.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

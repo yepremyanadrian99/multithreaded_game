@@ -1,7 +1,7 @@
-package am.adrian;
+package am.adrian.multithreaded_game;
 
-import am.adrian.game.Game;
-import am.adrian.game.Player;
+import am.adrian.multithreaded_game.game.Game;
+import am.adrian.multithreaded_game.object.Player;
 
 public class Application {
 

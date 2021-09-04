@@ -1,9 +1,11 @@
-package am.adrian.game;
+package am.adrian.multithreaded_game.game;
 
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
 
+import am.adrian.multithreaded_game.object.Player;
+import am.adrian.multithreaded_game.window.PlayerWindow;
 import lombok.Getter;
 
 public class Game {

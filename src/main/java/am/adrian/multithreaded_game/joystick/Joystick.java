@@ -1,14 +1,14 @@
-package am.adrian.game.joystick;
+package am.adrian.multithreaded_game.joystick;
 
 import java.awt.Panel;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import am.adrian.game.Player;
-import am.adrian.game.PlayerButton;
-import am.adrian.game.PlayerWindow;
-import am.adrian.game.enumeration.PlayerDirection;
+import am.adrian.multithreaded_game.button.PlayerButton;
+import am.adrian.multithreaded_game.enumeration.PlayerDirection;
+import am.adrian.multithreaded_game.object.Player;
+import am.adrian.multithreaded_game.window.PlayerWindow;
 
 public class Joystick {
 

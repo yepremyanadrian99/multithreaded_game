@@ -1,4 +1,4 @@
-package am.adrian.game;
+package am.adrian.multithreaded_game.window;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -7,7 +7,9 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import javax.swing.JFrame;
 
-import am.adrian.game.joystick.Joystick;
+import am.adrian.multithreaded_game.game.Game;
+import am.adrian.multithreaded_game.joystick.Joystick;
+import am.adrian.multithreaded_game.object.Player;
 import lombok.Getter;
 
 public class PlayerWindow extends Component implements Runnable {

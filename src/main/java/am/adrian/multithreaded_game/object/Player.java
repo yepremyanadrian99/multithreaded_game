@@ -1,4 +1,4 @@
-package am.adrian.game;
+package am.adrian.multithreaded_game.object;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
