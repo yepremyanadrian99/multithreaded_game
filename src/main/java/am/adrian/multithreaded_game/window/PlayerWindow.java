@@ -10,42 +10,35 @@ import javax.swing.JFrame;
 import am.adrian.multithreaded_game.game.Game;
 import am.adrian.multithreaded_game.joystick.Joystick;
 import am.adrian.multithreaded_game.object.Player;
+import am.adrian.multithreaded_game.pattern.Observer;
 import lombok.Getter;
 
-public class PlayerWindow extends Component implements Runnable {
+public class PlayerWindow extends Component implements Runnable, Observer {
 
     @Getter
     private final Game game;
     private final Player player;
     private final JFrame frame;
-    private final Joystick joystick;
     private final Panel mainPanel;
-    private final Panel gamePanel;
-    private final Panel joystickPanel;
+    @Getter
+    private final Joystick joystick;
     private boolean isUpdated = true;
 
-    public PlayerWindow(Game game, Player player, JFrame frame) {
+    public PlayerWindow(Game game, Player player, JFrame frame, Joystick joystick) {
         this.game = game;
         this.player = player;
         this.frame = frame;
+        this.joystick = joystick;
         this.mainPanel = new Panel(new GridLayout(2, 0));
-        this.gamePanel = new Panel();
-        this.joystickPanel = new Panel(new GridLayout(2, 2));
         this.frame.setContentPane(mainPanel);
-        this.mainPanel.add(gamePanel);
-        this.mainPanel.add(joystickPanel);
+        this.mainPanel.add(new Panel());
+        this.mainPanel.add(joystick.getPanel());
         this.frame.add(this);
-        this.joystick = new Joystick(this, joystickPanel, player);
     }
 
     @Override
-    public void run() {
-        while (!game.isGameOver()) {
-            if (isUpdated) {
-                this.mainPanel.repaint();
-                isUpdated = false;
-            }
-        }
+    public void handleObserverUpdated() {
+        isUpdated = true;
     }
 
     @Override
@@ -62,7 +55,11 @@ public class PlayerWindow extends Component implements Runnable {
         );
     }
 
-    public void triggerUpdate() {
-        isUpdated = true;
+    @Override
+    public void run() {
+        if (isUpdated) {
+            this.mainPanel.repaint();
+            isUpdated = false;
+        }
     }
 }

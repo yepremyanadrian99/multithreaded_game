@@ -2,10 +2,10 @@ package am.adrian.multithreaded_game.button;
 
 import java.awt.Dimension;
 import java.awt.Panel;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 import am.adrian.multithreaded_game.enumeration.PlayerDirection;
-import am.adrian.multithreaded_game.listener.GameMouseListener;
 import lombok.Data;
 
 @Data
@@ -29,8 +29,8 @@ public class PlayerButton {
         initButton();
     }
 
-    public void addMouseListener(Runnable action) {
-        button.addMouseListener(new GameMouseListener(action));
+    public void addMouseListener(MouseListener mouseListener) {
+        button.addMouseListener(mouseListener);
     }
 
     private void initButton() {

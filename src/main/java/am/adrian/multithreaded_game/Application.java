@@ -12,5 +12,6 @@ public class Application {
         for (int i = 0; i < PLAYER_COUNT; ++i) {
             game.addPlayer(new Player("Player " + i, 50 + i * 50, 100, 10, 30));
         }
+        game.start();
     }
 }

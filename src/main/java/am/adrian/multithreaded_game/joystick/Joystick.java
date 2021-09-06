@@ -7,21 +7,26 @@ import java.util.Set;
 
 import am.adrian.multithreaded_game.button.PlayerButton;
 import am.adrian.multithreaded_game.enumeration.PlayerDirection;
+import am.adrian.multithreaded_game.listener.GameMouseListener;
 import am.adrian.multithreaded_game.object.Player;
-import am.adrian.multithreaded_game.window.PlayerWindow;
+import am.adrian.multithreaded_game.pattern.Observable;
+import am.adrian.multithreaded_game.pattern.Observer;
+import lombok.Getter;
 
-public class Joystick {
+public class Joystick implements Observable {
 
+    @Getter
+    private final Panel panel;
     private final Player player;
     private final Set<PlayerButton> buttons;
-    private final PlayerWindow playerWindow;
-    private final Panel panel;
+    @Getter
+    private final Set<Observer> observers;
 
-    public Joystick(PlayerWindow playerWindow, Panel panel, Player player) {
-        this.playerWindow = playerWindow;
+    public Joystick(Panel panel, Player player) {
         this.panel = panel;
         this.player = player;
         this.buttons = new HashSet<>();
+        this.observers = new HashSet<>();
         initPlayerButtons();
     }
 
@@ -29,16 +34,16 @@ public class Joystick {
         Arrays.asList(PlayerDirection.values())
             .forEach(direction -> buttons.add(new PlayerButton(panel, 0, 0, direction)));
         initPlayerButtonsListeners(player);
-        playerWindow.triggerUpdate();
+        updateObservers();
     }
 
     private void initPlayerButtonsListeners(Player player) {
         buttons.forEach(playerButton ->
-            playerButton.addMouseListener(() -> {
+            playerButton.addMouseListener(new GameMouseListener(() -> {
                 Runnable playerAction = getPlayerActionByDirection(player, playerButton.getDirection());
                 playerAction.run();
-                playerWindow.getGame().triggerUpdate();
-            }));
+                updateObservers();
+            })));
     }
 
     private static Runnable getPlayerActionByDirection(Player player, PlayerDirection direction) {
