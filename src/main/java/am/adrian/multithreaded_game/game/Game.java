@@ -6,9 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
 
@@ -20,9 +19,8 @@ import lombok.Getter;
 
 public class Game implements Observer {
 
-    private static final int DELAY_IN_MILLISECONDS = 100;
+    private volatile boolean isGameOver = false;
 
-    private boolean gameOver = false;
     @Getter
     private final Map<Player, PlayerWindow> playerFrameMap;
 
@@ -36,16 +34,14 @@ public class Game implements Observer {
     }
 
     public void start() {
-        gameOver = false;
+        isGameOver = false;
         Collection<PlayerWindow> playerWindows = playerFrameMap.values();
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(playerWindows.size());
-        while (!isGameOver()) {
-            playerWindows.forEach(playerWindow -> executorService.schedule(playerWindow, DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS));
-        }
+        ExecutorService executorService = Executors.newFixedThreadPool(playerWindows.size());
+        playerWindows.forEach(executorService::execute);
     }
 
     public boolean isGameOver() {
-        return gameOver;
+        return isGameOver;
     }
 
     public void addPlayer(Player player) {

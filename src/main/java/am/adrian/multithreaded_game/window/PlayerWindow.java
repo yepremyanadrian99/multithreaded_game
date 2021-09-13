@@ -22,7 +22,7 @@ public class PlayerWindow extends Component implements Runnable, Observer {
     private final Panel mainPanel;
     @Getter
     private final Joystick joystick;
-    private boolean isUpdated = true;
+    private volatile boolean isUpdated = true;
 
     public PlayerWindow(Game game, Player player, JFrame frame, Joystick joystick) {
         this.game = game;
@@ -57,9 +57,11 @@ public class PlayerWindow extends Component implements Runnable, Observer {
 
     @Override
     public void run() {
-        if (isUpdated) {
-            this.mainPanel.repaint();
-            isUpdated = false;
+        while (!game.isGameOver()) {
+            if (isUpdated) {
+                this.mainPanel.repaint();
+                isUpdated = false;
+            }
         }
     }
 }
